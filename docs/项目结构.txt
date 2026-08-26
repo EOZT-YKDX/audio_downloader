@@ -1,0 +1,113 @@
+audio_downloader/
+│
+├── requirements.txt                          # 项目依赖
+├── static/
+│   └── EOZT.png                              # 静态资源
+│
+└── src/
+    ├── __init__.py
+    ├── main.py                               # 程序入口，主流程编排
+    │
+    ├── app_initializer/                      # 应用初始化模块
+    │   ├── __init__.py
+    │   ├── main.py                           # 初始化入口
+    │   ├── constants.py                      # 常量定义
+    │   ├── read_constants.py                 # 常量读取
+    │   ├── dependency_check.py               # 依赖检查
+    │   └── directory_setup.py                # 目录设置
+    │
+    ├── config_handler/                       # 配置处理模块
+    │   ├── __init__.py
+    │   ├── main.py                           # 配置管理入口
+    │   ├── constants.py                      # 常量定义
+    │   ├── config_updater.py                 # 配置更新
+    │   └── reader/                           # 配置读取子模块
+    │       ├── __init__.py
+    │       ├── read_config.py                # 配置文件读取
+    │       └── read_constants.py             # 常量读取
+    │
+    ├── log_setup/                            # 日志设置模块
+    │   ├── __init__.py
+    │   ├── constants.py                      # 常量定义
+    │   ├── read_constants.py                 # 常量读取
+    │   ├── file_log.py                       # 文件日志
+    │   └── terminal_log.py                   # 终端日志
+    │
+    ├── network_client/                       # 网络客户端模块
+    │   ├── __init__.py
+    │   ├── constants.py                      # 常量定义
+    │   ├── read_constants.py                 # 常量读取
+    │   ├── crawler/                          # 爬虫子模块
+    │   │   ├── __init__.py
+    │   │   ├── main.py                       # 爬虫入口
+    │   │   └── request_handler.py            # 请求处理
+    │   └── downloader/                       # 下载子模块
+    │       ├── __init__.py
+    │       ├── download_bilibili_video.py    # B站视频下载
+    │       ├── download_compress_file.py     # 压缩文件下载
+    │       └── download_file.py              # 通用文件下载
+    │
+    ├── task_executor/                        # 任务执行模块
+    │   ├── __init__.py
+    │   ├── constants.py                      # 常量定义
+    │   ├── read_constants.py                 # 常量读取
+    │   ├── downloader/                       # 下载任务子模块
+    │   │   ├── __init__.py
+    │   │   ├── main.py                       # 下载任务入口
+    │   │   ├── download_task.py              # 下载任务
+    │   │   └── formatter.py                  # 格式化
+    │   └── compressor/                       # 压缩任务子模块
+    │       ├── __init__.py
+    │       ├── main.py                       # 压缩任务入口
+    │       ├── compress_task.py              # 压缩任务
+    │       └── get_pending_files.py          # 获取待处理文件
+    │
+    ├── data_processor/                       # 数据处理模块
+    │   ├── __init__.py
+    │   ├── constants.py                      # 常量定义
+    │   ├── read_constants.py                 # 常量读取
+    │   ├── filter/                           # 过滤子模块
+    │   │   ├── __init__.py
+    │   │   ├── main.py                       # 过滤入口
+    │   │   ├── file_filter.py                # 文件过滤
+    │   │   ├── media_data_processor.py       # 媒体数据处理
+    │   │   └── tag_reader.py                 # 标签读取
+    │   ├── extractor/                        # 提取子模块
+    │   │   ├── __init__.py
+    │   │   ├── main.py                       # 提取入口
+    │   │   ├── file_rename.py                # 文件重命名
+    │   │   └── matcher.py                    # 匹配器
+    │   └── converter/                        # 转换子模块
+    │       ├── __init__.py
+    │       └── main.py                       # 转换入口
+    │
+    ├── audio_compressor/                     # 音频压缩模块
+    │   ├── __init__.py
+    │   ├── main.py                           # 压缩入口
+    │   ├── constants.py                      # 常量定义
+    │   ├── read_constants.py                 # 常量读取
+    │   ├── website_interaction.py            # 网站交互
+    │   └── browser_manager/                  # 浏览器管理子模块
+    │       ├── __init__.py
+    │       └── edge_browser.py               # Edge浏览器管理
+    │
+    ├── metadata_editor/                      # 元数据编辑模块
+    │   ├── __init__.py
+    │   ├── main.py                           # 编辑入口
+    │   ├── constants.py                      # 常量定义
+    │   ├── reader/                           # 读取子模块
+    │   │   ├── __init__.py
+    │   │   ├── read_constants.py             # 常量读取
+    │   │   └── read_cover.py                 # 封面读取
+    │   └── formats/                          # 格式子模块
+    │       ├── __init__.py
+    │       ├── mp3.py                        # MP3格式处理
+    │       └── flac.py                       # FLAC格式处理
+    │
+    └── stats_generator/                      # 统计生成模块
+        ├── __init__.py
+        ├── main.py                           # 统计入口
+        ├── constants.py                      # 常量定义
+        ├── read_constants.py                 # 常量读取
+        ├── formatter.py                      # 格式化
+        └── writer.py                         # 写入
