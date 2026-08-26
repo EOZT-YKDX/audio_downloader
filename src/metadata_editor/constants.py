@@ -1,0 +1,21 @@
+# -*- coding:utf-8 -*- #
+
+# Author: YKDX
+# Version: 1.0.0
+# Date Creation: 2026/7/20
+# Date Modified: 2026/7/28
+# Program Name: metadata_editor - constants
+
+DEFAULT_METADATA_FILE_NAME = "未知名称"
+
+# 音轨元数据常量
+DEFAULT_METADATA_ENCODER = "YKDX"
+DEFAULT_METADATA_PUBLISHER = "YKDX"
+DEFAULT_METADATA_ARTIST = "EOZT-YKDX出品"
+DEFAULT_METADATA_COPYRIGHT = "©EOZT 2025-2026"
+DEFAULT_METADATA_AUTHOR_URL = "https://github.com/EOZT-YKDX"
+DEFAULT_METADATA_COVER_FILE = r"audio_downloader\static\EOZT.png"
+
+# 标签常量
+DEFAULT_METADATA_MP3_TAG = ["TIT3", "TDRC", "TPE1", "TENC", "TPUB", "TCOP", "APIC", "WOAR"]
+DEFAULT_METADATA_FLAC_TAG = ["SUBTITLE", "ARTIST", "ENCODER", "COPYRIGHT", "DESCRIPTION", "ORGANIZATION", "DATE"]

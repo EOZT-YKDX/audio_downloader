@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Downloader</title>
+    <link rel="stylesheet" href="./frame/frame.css">
+</head>
+<body>
+    <!-- 删除确认弹窗 -->
+    <div class="modal-mask" id="delMask">
+        <div class="modal-box">
+            <h3>确认删除</h3>
+            <p>确定要删除所有下载任务吗？此操作不可撤销。</p>
+            <div class="modal-buttons">
+                <button class="modal-cancel" id="cancelDel">取消</button>
+                <button class="modal-confirm" id="confirmDel">确认删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 外层窗口容器 -->
+    <div class="outer-frame" id="dragWindow">
+        <!-- 顶部拖拽标题栏 -->
+        <div class="drag-header" id="dragBar">
+            <div class="title-left">
+                <svg class="app-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span class="window-title">Audio Downloader</span>
+            </div>
+            <div class="title-right">
+                <button class="min-btn" id="minBtn" title="最小化">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                        <line x1="4" y1="12" x2="20" y2="12"></line>
+                    </svg>
+                </button>
+                <button class="close-btn" id="closeBtn" title="退出">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- 主体内容 -->
+        <div class="frame-body">
+            <!-- 左侧侧边栏 -->
+            <div class="sidebar">
+                <button class="sidebar-btn active nav-task" title="任务列表" data-view="task">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </button>
+                <button class="sidebar-btn" title="新建任务" id="addTaskBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <div class="sidebar-spacer"></div>
+                <button class="sidebar-btn sidebar-setting nav-setting" title="设置" data-view="setting">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- iframe内容区域 -->
+            <iframe id="contentIframe" src="./content/content.html" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <script src="./frame/frame.js"></script>
+</body>
+</html>

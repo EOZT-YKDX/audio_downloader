@@ -1,0 +1,266 @@
+/* CSS 变量定义 - 主题系统 */
+:root {
+    --bg-primary: #1c1c1e;
+    --bg-secondary: #2b2b2d;
+    --bg-tertiary: #3a3a3c;
+    --text-primary: #fff;
+    --text-secondary: #999;
+    --accent-color: #007aff;
+    --border-color: #3a3a3c;
+    --btn-bg: #3a3a3c;
+    --btn-text: #ffffff;
+    --btn-hover-bg: #48484a;
+    --title-color: #fff;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 500;
+    --spacing-sm: 6px;
+    --spacing-md: 10px;
+    --spacing-lg: 14px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Microsoft YaHei", sans-serif;
+}
+
+html, body {
+    background: var(--bg-primary);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 删除弹窗 */
+.modal-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-mask.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 320px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 20px;
+    color: var(--text-primary);
+}
+
+.modal-box h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.modal-box p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal-cancel {
+    padding: 6px 14px;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-confirm {
+    padding: 6px 14px;
+    background: #ff453a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 外层窗口容器 - 全屏无边框 */
+.outer-frame {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* 拖拽标题栏 */
+.drag-header {
+    height: 36px;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    cursor: move;
+    justify-content: space-between;
+}
+
+.title-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.app-icon {
+    flex-shrink: 0;
+    stroke: var(--title-color);
+}
+
+.window-title {
+    font-size: 13px;
+    color: var(--title-color);
+    font-weight: var(--font-weight-medium, 500);
+}
+
+.title-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 最小化按钮 */
+.min-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.min-btn:hover {
+    background-color: var(--btn-hover-bg);
+}
+
+.min-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--text-primary);
+}
+
+/* 退出按钮 */
+.close-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: #ff453a;
+}
+
+.close-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--text-primary);
+}
+
+/* 主体内容区域 */
+.frame-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+/* 左侧侧边栏 */
+.sidebar {
+    width: 52px;
+    flex: 0 0 52px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 14px;
+    gap: 12px;
+}
+
+.sidebar-spacer {
+    flex-grow: 1;
+}
+
+.sidebar-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-md);
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    font-weight: var(--font-weight-medium, 500);
+}
+
+.sidebar-btn svg,
+.sidebar-btn svg path,
+.sidebar-btn svg polyline,
+.sidebar-btn svg line,
+.sidebar-btn svg circle {
+    stroke: var(--btn-text) !important;
+}
+
+.sidebar-btn.active {
+    background-color: var(--accent-color);
+}
+
+.sidebar-btn.active svg,
+.sidebar-btn.active svg path,
+.sidebar-btn.active svg polyline,
+.sidebar-btn.active svg line,
+.sidebar-btn.active svg circle {
+    stroke: #ffffff !important;
+}
+
+.sidebar-btn:hover {
+    background-color: var(--btn-hover-bg);
+}
+
+.sidebar-setting {
+    margin-bottom: 12px;
+}
+
+/* iframe */
+#contentIframe {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
