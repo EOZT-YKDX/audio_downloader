@@ -1,0 +1,62 @@
+
+/* 顶部导航栏样式 */
+#top_nav {
+    width: 100%;                        /* 宽度 */
+    height: 35px;                       /* 高度 */
+    display: flex;                      /* 弹性布局 */
+    align-items: center;                /* 垂直居中对齐 */
+    background-color: #2C2C2E;        /* 背景颜色 */
+    border-top-left-radius: 8px;        /* 左上角圆角 */
+    border-top-right-radius: 8px;       /* 右上角圆角 */
+    border-bottom-right-radius: 8px;    /* 右下角圆角 */
+}
+
+/* 顶部导航栏图标样式 */
+#top_nav_icon {
+    fill: none;                         /* 不填充颜色 */
+    width: 23px;                        /* 图标宽度 */
+    stroke-width: 2;                    /* 图标边框宽度 */
+    margin-left: 11px;                  /* 图标与标题间距 */
+    margin-right: 5px;                  /* 图标与标题间距 */
+    stroke: currentColor;               /* 图标边框颜色 */
+    color: white;                     /* 图标颜色 */
+}
+
+#top_nav_title {
+    color: white;                     /* 标题颜色 */
+    font-size: 16px;                    /* 标题字体大小 */
+}
+
+#top_nav_minimize_button {
+    fill: none;                         /* 不填充颜色 */
+    width: 20px;                        /* 图标宽度 */
+    stroke-width: 2;                    /* 图标边框宽度 */
+    stroke: currentColor;               /* 图标边框颜色 */
+    cursor: pointer;                    /* 鼠标悬停时显示指针 */
+    margin-left: auto;                  /* 右对中对齐 */
+    padding: 5px;                       /* 内边距 */
+    border-radius: 6px;                 /* 圆角 */
+    color: white;                     /* 图标颜色 */
+}
+
+#top_nav_minimize_button:hover {
+    background-color: #3A3A3C;        /* 鼠标悬停时背景颜色 */
+    transition: background-color 0.3s ease-in-out; /* 过渡效果 */
+}
+
+#top_nav_close_button {
+    fill: none;                         /* 不填充颜色 */
+    width: 20px;                        /* 图标宽度 */
+    stroke-width: 2;                    /* 图标边框宽度 */
+    margin-right: 5px;                  /* 图标与标题间距 */
+    stroke: currentColor;               /* 图标边框颜色 */
+    cursor: pointer;                    /* 鼠标悬停时显示指针 */
+    padding: 5px;                       /* 内边距 */
+    border-radius: 6px;                 /* 圆角 */
+    color: white;                     /* 图标颜色 */
+}
+
+#top_nav_close_button:hover {
+    background-color: #f8373a;        /* 鼠标悬停时背景颜色 */
+    transition: background-color 0.3s ease-in-out; /* 过渡效果 */
+}

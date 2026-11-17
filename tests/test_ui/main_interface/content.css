@@ -1,0 +1,14 @@
+
+#content {
+    flex: 1;                    /* 占满剩余空间 */
+    display: flex;              /* 弹性布局 */
+    overflow: auto;             /* 自动滚动 */
+    align-items: center;        /* 垂直居中 */
+    justify-content: center;    /* 水平居中 */
+}
+
+#empty_state_message {
+    color: #87858C;             /* 文本颜色 */
+    font-size: 20px;            /* 字体大小 */
+    text-align: center;         /* 文本居中 */
+}
