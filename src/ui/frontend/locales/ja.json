@@ -1,0 +1,245 @@
+{
+  "app": {
+    "title": "Audio Downloader",
+    "window_title": "オーディオダウンローダー"
+  },
+  "sidebar": {
+    "download_tasks": "ダウンロードタスク",
+    "add_task": "タスク追加",
+    "settings": "設定"
+  },
+  "toolbar": {
+    "start_all": "すべて開始",
+    "pause_all": "すべて一時停止",
+    "delete_all": "すべて削除"
+  },
+  "task_list": {
+    "empty": "現在ダウンロードタスクはありません",
+    "status": {
+      "pending": "待機中",
+      "downloading": "ダウンロード中",
+      "completed": "完了",
+      "failed": "失敗",
+      "paused": "一時停止"
+    },
+    "actions": {
+      "pause": "一時停止",
+      "resume": "再開",
+      "delete": "削除"
+    },
+    "error": {
+      "batch_start_failed": "タスクの一括開始に失敗しました",
+      "batch_pause_failed": "タスクの一括一時停止に失敗しました",
+      "batch_delete_failed": "タスクの一括削除に失敗しました",
+      "pause_failed": "タスクの一時停止に失敗しました",
+      "delete_failed": "タスクの削除に失敗しました"
+    }
+  },
+  "add_task": {
+    "title": "タスク追加",
+    "download_type": {
+      "link": "リンクダウンロード",
+      "favorite": "お気に入りダウンロード"
+    },
+    "link": {
+      "placeholder": "複数のダウンロードリンクを追加する場合は、1行に1つのリンクを入力してください",
+      "parse_result": "解析結果",
+      "empty": "まだ解析コンテンツはありません",
+      "detecting": "リンクを検出中...",
+      "valid": "リンク形式は有効です",
+      "invalid": "リンク形式が無効です",
+      "duplicate_warning": "{count} 個の重複ビデオが見つかりました。自動的に重複を削除し、固有のビデオのみを表示します"
+    },
+    "favorite": {
+      "label": "お気に入り ID",
+      "placeholder": "Bilibili お気に入り ID を入力してください（例: 3570962345）",
+      "help": "お気に入り ID はブラウザのアドレスバーから取得できます。形式: space.bilibili.com/{uid}/favlist?fid={お気に入りID}",
+      "parse_result": "解析結果",
+      "empty": "まだ解析コンテンツはありません",
+      "no_downloadable_videos": "このお気に入りにはダウンロード可能なビデオがありません",
+      "parsing": "お気に入りを解析中...",
+      "total_videos": "合計 {count} 本のビデオ",
+      "showing": "最初の {count} 本を表示",
+      "valid": "お気に入り ID は有効です",
+      "invalid": "お気に入り ID は無効です",
+      "refresh": "更新",
+      "refresh_tip": "対象のお気に入りを再取得"
+    },
+    "settings": {
+      "title": "ダウンロード設定",
+      "task_name": "タスク名",
+      "task_name_placeholder": "ダウンロードタスク",
+      "task_name_tip": "このダウンロードタスクにカスタム名を付けて、識別と管理を容易にします",
+      "speed_limit": "速度制限",
+      "speed_limit_tip": "このタスクのダウンロード速度を制限し、ネットワーク帯域幅の過度な使用を避けます",
+      "speed_options": {
+        "unlimited": "無制限",
+        "500k": "500 KB/s",
+        "1m": "1 MB/s",
+        "2m": "2 MB/s",
+        "5m": "5 MB/s"
+      },
+      "conflict": "競合処理",
+      "conflict_tip": "ターゲットファイルが既に存在する場合：スキップ（ダウンロードしない）、上書き（元のファイルを置き換え）、リネーム（シーケンス番号を追加）",
+      "conflict_actions": {
+        "skip": "スキップ",
+        "overwrite": "上書き",
+        "rename": "リネーム"
+      }
+    },
+    "buttons": {
+      "ok": "OK",
+      "cancel": "キャンセル"
+    },
+    "validation": {
+      "enter_link": "ダウンロードリンクを入力してください",
+      "enter_fid": "お気に入り ID を入力してください",
+      "add_failed": "タスクの追加に失敗しました: {error}",
+      "no_valid_links": "有効なダウンロードリンクがありません",
+      "links_empty": "リンクリストは空にできません",
+      "links_format_error": "リンクリストの形式が無効です",
+      "links_too_many": "1つのタスクあたり最大100リンク",
+      "fid_format_error": "お気に入りIDの形式が無効です",
+      "task_data_format_error": "タスクデータの形式が無効です",
+      "unsupported_task_type": "サポートされていないタスクタイプ",
+      "task_name_invalid_chars": "タスク名に無効な文字が含まれています",
+      "save_path_invalid": "保存パスが無効です",
+      "link_process_failed": "リンクの処理に失敗しました",
+      "favorite_process_failed": "お気に入りの処理に失敗しました",
+      "task_id_format_error": "タスクIDの形式が無効です",
+      "task_not_found": "タスクが見つかりません"
+    }
+  },
+  "settings": {
+    "sections": {
+      "appearance": "外観とテーマ",
+      "download": "ダウンロードと出力",
+      "language_time": "言語と時間",
+      "notification": "通知とヒント",
+      "reset": "デフォルトにリセット"
+    },
+    "theme": {
+      "name": "テーマモード",
+      "desc": "アプリのビジュアルテーマを選択",
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システムに従う"
+    },
+    "background": {
+      "type_name": "背景タイプ",
+      "type_desc": "アプリの背景スタイルを選択",
+      "solid": "単色",
+      "image": "画像",
+      "image_name": "背景画像",
+      "image_desc": "カスタム壁紙を選択",
+      "select_image": "画像を選択"
+    },
+    "color": {
+      "name": "テーマカラー",
+      "desc": "アプリのアクセントカラーを選択"
+    },
+    "format": {
+      "name": "デフォルト出力形式",
+      "desc": "オーディオ出力形式を選択"
+    },
+    "save_path": {
+      "name": "デフォルト保存パス",
+      "desc": "ファイルの保存場所を選択",
+      "placeholder": "保存パスを選択してください",
+      "browse": "参照"
+    },
+    "concurrent": {
+      "name": "同時ダウンロードタスク数",
+      "desc": "最大同時ダウンロード数を設定"
+    },
+    "concurrent_compress": {
+      "name": "同時圧縮タスク数",
+      "desc": "最大同時圧縮数を設定"
+    },
+    "language": {
+      "name": "インターフェース言語",
+      "desc": "アプリの表示言語を選択",
+      "zh": "中国語",
+      "en": "英語",
+      "ja": "日本語"
+    },
+    "time_format": {
+      "name": "時間形式",
+      "desc": "時間の表示方法を選択",
+      "h24": "24時間制",
+      "h12": "12時間制"
+    },
+    "date_format": {
+      "name": "日付順序",
+      "desc": "日付の表示形式を選択",
+      "ymd": "年-月-日",
+      "mdy": "月/日/年",
+      "dmy": "日/月/年"
+    },
+    "notification": {
+      "style_name": "通知ポップアップスタイル",
+      "style_desc": "通知の表示方法を選択",
+      "banner": "バナー",
+      "silent": "サイレント",
+      "badge": "バッジ",
+      "position_name": "通知表示位置",
+      "position_desc": "通知が表示される位置を選択",
+      "center": "中央",
+      "corner": "右下",
+      "sound": "サウンド通知",
+      "sound_desc": "通知を受け取ったときにサウンドを再生",
+      "preview": "プレビューコンテンツ",
+      "preview_desc": "通知にメッセージの詳細を表示",
+      "dnd": "サイレントモード",
+      "dnd_desc": "この期間中は自動的に通知をミュート",
+      "to": "から"
+    },
+    "reset": {
+      "title": "デフォルトにリセット",
+      "confirm_title": "リセットの確認",
+      "confirm_message": "すべての設定をデフォルト値にリセットしてもよろしいですか？この操作は元に戻せません。",
+      "confirm_btn": "リセット",
+      "cancel_btn": "キャンセル",
+      "success_title": "成功",
+      "success_message": "設定がデフォルト値にリセットされました",
+      "ok_btn": "了解",
+      "error_title": "エラー",
+      "error_message": "リセットに失敗しました: {error}"
+    }
+  },
+  "modal": {
+    "title": "ヒント",
+    "error_title": "エラー",
+    "confirm": "OK",
+    "cancel": "キャンセル",
+    "delete": {
+      "title": "削除の確認",
+      "message": "すべてのタスクを削除してもよろしいですか？この操作は元に戻せません。",
+      "confirm": "削除",
+      "cancel": "キャンセル"
+    }
+  },
+  "parse": {
+    "parsing": "解析中...",
+    "failed": "解析に失敗しました",
+    "error": "解析に失敗しました: {error}",
+    "parser_not_initialized": "Bilibiliパーサーが初期化されていません",
+    "favorite_failed": "お気に入りの解析に失敗しました"
+  },
+  "backend": {
+    "links_format_error": "リンクリストの形式が無効です",
+    "links_empty": "リンクリストは空にできません",
+    "links_too_many": "1つのタスクあたり最大100リンク",
+    "no_valid_links": "有効なダウンロードリンクがありません",
+    "fid_format_error": "お気に入りIDの形式が無効です"
+  },
+  "units": {
+    "b": "B",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "b_s": "B/s",
+    "kb_s": "KB/s",
+    "mb_s": "MB/s"
+  }
+}

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Downloader</title>
+    <!-- 主题样式（动态加载） -->
+    <link rel="stylesheet" href="css/frame.css">
+    <link rel="stylesheet" href="css/content.css">
+    <!-- 主题文件将通过 JS 动态加载 -->
+    <link rel="stylesheet" href="css/theme-dark.css" id="theme-stylesheet-dark">
+    <link rel="stylesheet" href="css/theme-light.css" id="theme-stylesheet-light" disabled>
+</head>
+<body>
+    <!-- 顶部拖拽标题栏 -->
+    <div class="drag-header" id="dragBar">
+        <div class="title-left">
+            <svg class="app-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span class="window-title">Audio Downloader</span>
+        </div>
+        <div class="title-right">
+            <button class="min-btn" id="minBtn" title="最小化">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                </svg>
+            </button>
+            <button class="close-btn" id="closeBtn" title="退出">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="app-body">
+        <!-- 左侧边栏 -->
+        <div class="sidebar">
+        <div class="sidebar-item active" data-page="download" title="下载任务">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+        </div>
+        <div class="sidebar-item" data-page="add-task" title="添加任务">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+        </div>
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-item" data-page="settings" title="设置">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 下载任务页面 -->
+        <div class="page" id="page-download">
+            <!-- 顶部工具栏 - 动画滑入 -->
+            <div class="top-bar" id="topBar">
+                <button class="top-btn primary" id="btn-start-all">全部开始</button>
+                <button class="top-btn secondary" id="btn-pause-all">全部暂停</button>
+                <button class="top-btn danger" id="btn-delete-all">全部删除</button>
+            </div>
+            <!-- 任务列表 -->
+            <div class="task-list" id="taskList"></div>
+            <!-- 空状态 -->
+            <div class="empty-tip" id="emptyTip">当前没有下载任务</div>
+        </div>
+
+        <!-- 添加任务页面 -->
+        <div class="page" id="page-add-task" style="display: none;">
+            <div class="add-task-mask" id="addTaskMask">
+                <div class="add-task-modal">
+                    <div class="modal-top">
+                        <h2 class="modal-title">添加任务</h2>
+                    </div>
+                    
+                    <!-- 下载类型切换器 -->
+                    <div class="download-type-switcher" id="downloadTypeSwitcher">
+                        <button class="type-btn active" data-type="link-download">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                            <span>链接下载</span>
+                        </button>
+                        <button class="type-btn" data-type="fav-download">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span>收藏夹下载</span>
+                        </button>
+                    </div>
+
+                    <!-- 链接下载区域 -->
+                    <div class="download-input-area" id="linkInputArea">
+                        <textarea class="link-input" id="linkInput" placeholder="添加多个下载链接时，请确保每行只有一个下载链接"></textarea>
+                        <div class="parse-result" id="parseResultArea">
+                            <h4>解析结果</h4>
+                            <div class="result-empty" id="parseResultText">暂无解析内容</div>
+                        </div>
+                    </div>
+
+                    <!-- 收藏夹下载区域 -->
+                    <div class="download-input-area" id="favoritesInputArea" style="display: none;">
+                        <div class="favorites-input-group">
+                            <div class="favorites-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <span>收藏夹 ID</span>
+                            </div>
+                            <input type="text" class="favorites-id-input" id="favoritesIdInput" placeholder="请输入 B 站收藏夹 ID (例如: 3570962345)">
+                            <div class="fid-validation-status" id="fidValidationStatus" style="display: none;">
+                                <span class="fid-status-icon"></span>
+                                <span class="fid-status-text"></span>
+                            </div>
+                        </div>
+                        <div class="favorites-help-text">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <span>收藏夹 ID 可在浏览器地址栏中获取，格式为: space.bilibili.com/{uid}/favlist?fid={收藏夹ID}</span>
+                        </div>
+                        <div class="parse-result" id="favoritesParseResult">
+                            <div class="parse-result-header">
+                                <h4>解析结果</h4>
+                                <button class="refresh-favorites-btn" id="refreshFavoritesBtn" style="display: none;" data-i18n-title="add_task.favorite.refresh_tip">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="23 4 23 10 17 10"></polyline>
+                                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                    </svg>
+                                    <span data-i18n="add_task.favorite.refresh">刷新</span>
+                                </button>
+                            </div>
+                            <div class="result-empty" id="favoritesParseText">暂无解析内容</div>
+                        </div>
+                    </div>
+
+                    <div class="download-setting">
+                        <h4 data-i18n="add_task.settings.title">下载设置</h4>
+                        <div class="setting-row">
+                            <div class="setting-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 14.66V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5.34"></path>
+                                    <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+                                </svg>
+                                <span data-i18n="add_task.settings.task_name">任务名称</span>
+                                <span class="help-tip" data-tip-key="add_task.settings.task_name_tip">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="path-input-wrap full-width">
+                                <input type="text" id="task-name" data-i18n-placeholder="add_task.settings.task_name_placeholder" placeholder="下载任务">
+                            </div>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                </svg>
+                                <span data-i18n="add_task.settings.speed_limit">下载限速</span>
+                                <span class="help-tip" data-tip-key="add_task.settings.speed_limit_tip">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="speed-limit-wrap full-width">
+                                <select class="speed-limit-select" id="speed-limit">
+                                    <option value="0" data-i18n="add_task.settings.speed_options.unlimited">不限速</option>
+                                    <option value="500" data-i18n="add_task.settings.speed_options.500k">500 KB/s</option>
+                                    <option value="1024" data-i18n="add_task.settings.speed_options.1m">1 MB/s</option>
+                                    <option value="2048" data-i18n="add_task.settings.speed_options.2m">2 MB/s</option>
+                                    <option value="5120" data-i18n="add_task.settings.speed_options.5m">5 MB/s</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <path d="M12 18v-6"></path>
+                                    <path d="M9 15l3 3 3-3"></path>
+                                </svg>
+                                <span data-i18n="add_task.settings.conflict">冲突处理</span>
+                                <span class="help-tip" data-tip-key="add_task.settings.conflict_tip">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="conflict-wrap full-width">
+                                <div class="conflict-group" id="conflictGroup">
+                                    <button class="conflict-btn active" data-value="skip">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                                        </svg>
+                                        <span data-i18n="add_task.settings.conflict_actions.skip">跳过</span>
+                                    </button>
+                                    <button class="conflict-btn" data-value="overwrite">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="23 4 23 10 17 10"></polyline>
+                                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                        </svg>
+                                        <span data-i18n="add_task.settings.conflict_actions.overwrite">覆盖</span>
+                                    </button>
+                                    <button class="conflict-btn" data-value="rename">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                        <span data-i18n="add_task.settings.conflict_actions.rename">重命名</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-btn-group">
+                        <button class="ok-btn" id="btn-ok" data-i18n="add_task.buttons.ok">OK</button>
+                        <button class="cancel-btn" id="btn-cancel" data-i18n="add_task.buttons.cancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设置页面 -->
+        <div class="page" id="page-settings" style="display: none;">
+            <div class="settings-container">
+                <!-- 外观与主题 -->
+                <div class="settings-section">
+                    <h2 class="section-title" data-i18n="settings.sections.appearance">外观与主题</h2>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"/>
+                                <line x1="12" y1="1" x2="12" y2="3"/>
+                                <line x1="12" y1="21" x2="12" y2="23"/>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                <line x1="1" y1="12" x2="3" y2="12"/>
+                                <line x1="21" y1="12" x2="23" y2="12"/>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.theme.name">主题模式</span>
+                                <span class="setting-desc" data-i18n="settings.theme.desc">选择应用的视觉主题</span>
+                            </div>
+                        </div>
+                        <div class="theme-mode-wrap">
+                            <div class="theme-mode-group" id="themeModeGroup">
+                                <button class="theme-mode-btn" data-mode="light">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <line x1="12" y1="1" x2="12" y2="3"/>
+                                        <line x1="12" y1="21" x2="12" y2="23"/>
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                        <line x1="1" y1="12" x2="3" y2="12"/>
+                                        <line x1="21" y1="12" x2="23" y2="12"/>
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                                    </svg>
+                                    <span data-i18n="settings.theme.light">浅色</span>
+                                </button>
+                                <button class="theme-mode-btn" data-mode="dark">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                                    </svg>
+                                    <span data-i18n="settings.theme.dark">深色</span>
+                                </button>
+                                <button class="theme-mode-btn active" data-mode="system">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                        <line x1="8" y1="21" x2="16" y2="21"/>
+                                        <line x1="12" y1="17" x2="12" y2="21"/>
+                                    </svg>
+                                    <span data-i18n="settings.theme.system">跟随系统</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.background.type_name">背景类型</span>
+                                <span class="setting-desc" data-i18n="settings.background.type_desc">选择应用背景样式</span>
+                            </div>
+                        </div>
+                        <div class="bg-type-wrap">
+                            <div class="bg-type-group" id="bgTypeGroup">
+                                <button class="bg-type-btn active" data-type="solid">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        <rect x="6" y="6" width="12" height="12" rx="1" fill="currentColor" opacity="0.3" stroke="none"></rect>
+                                    </svg>
+                                    <span data-i18n="settings.background.solid">纯色</span>
+                                </button>
+                                <button class="bg-type-btn" data-type="image">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" opacity="0.5" stroke="none"></circle>
+                                        <path d="M21 15l-5-5L5 21" stroke-width="1.5"></path>
+                                    </svg>
+                                    <span data-i18n="settings.background.image">图片</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item" id="bgImageItem" style="display:none">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.background.image_name">背景图片</span>
+                                <span class="setting-desc" data-i18n="settings.background.image_desc">选择自定义壁纸</span>
+                            </div>
+                        </div>
+                        <div class="bg-image-wrap">
+                            <button class="bg-image-btn" id="bgImageBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span data-i18n="settings.background.select_image">选择图片</span>
+                            </button>
+                            <input type="file" id="bgImageInput" accept="image/*" hidden>
+                            <div class="bg-image-preview" id="bgImagePreview"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.color.name">主题色</span>
+                                <span class="setting-desc" data-i18n="settings.color.desc">选择应用的强调色</span>
+                            </div>
+                        </div>
+                        <div class="color-picker">
+                            <div class="color-option active" data-color="#007aff" style="background: #007aff;"></div>
+                            <div class="color-option" data-color="#5856d6" style="background: #5856d6;"></div>
+                            <div class="color-option" data-color="#ff2d55" style="background: #ff2d55;"></div>
+                            <div class="color-option" data-color="#ff9500" style="background: #ff9500;"></div>
+                            <div class="color-option" data-color="#34c759" style="background: #34c759;"></div>
+                            <div class="color-option" data-color="#af52de" style="background: #af52de;"></div>
+                            <div class="color-option add-color" id="customColorBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <input type="color" id="customColorPicker" hidden>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 下载与输出 -->
+                <div class="settings-section">
+                    <h2 class="section-title" data-i18n="settings.sections.download">下载与输出</h2>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10 9 9 9 8 9"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.format.name">默认输出格式</span>
+                                <span class="setting-desc" data-i18n="settings.format.desc">选择音频输出格式</span>
+                            </div>
+                        </div>
+                        <div class="setting-right format-wrap">
+                            <select class="format-select" id="formatSelect">
+                                <option value="mp3">MP3</option>
+                                <option value="flac">FLAC</option>
+                                <option value="wav">WAV</option>
+                                <option value="aac">AAC</option>
+                                <option value="ogg">OGG</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.save_path.name">默认保存路径</span>
+                                <span class="setting-desc" data-i18n="settings.save_path.desc">选择文件保存位置</span>
+                            </div>
+                        </div>
+                        <div class="setting-right save-path-wrap">
+                            <input type="text" class="save-path-input" id="savePathInput" data-i18n-placeholder="settings.save_path.placeholder" placeholder="请选择保存路径" readonly>
+                            <button class="save-path-btn" id="savePathBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                                </svg>
+                                <span data-i18n="settings.save_path.browse">浏览</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="4" y1="12" x2="20" y2="12"/>
+                                <line x1="4" y1="6" x2="20" y2="6"/>
+                                <line x1="4" y1="18" x2="20" y2="18"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.concurrent.name">同时下载任务数</span>
+                                <span class="setting-desc" data-i18n="settings.concurrent.desc">设置最大并发下载数</span>
+                            </div>
+                        </div>
+                        <div class="setting-right task-count-wrap">
+                            <div class="task-count-group" id="taskCountGroup">
+                                <button class="task-count-btn" data-count="1">
+                                    <span>1</span>
+                                </button>
+                                <button class="task-count-btn" data-count="2">
+                                    <span>2</span>
+                                </button>
+                                <button class="task-count-btn active" data-count="3">
+                                    <span>3</span>
+                                </button>
+                                <button class="task-count-btn" data-count="4">
+                                    <span>4</span>
+                                </button>
+                                <button class="task-count-btn" data-count="5">
+                                    <span>5</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.concurrent_compress.name">同时压缩任务数</span>
+                                <span class="setting-desc" data-i18n="settings.concurrent_compress.desc">设置最大并发压缩数</span>
+                            </div>
+                        </div>
+                        <div class="setting-right task-count-wrap">
+                            <div class="task-count-group" id="compressTaskCountGroup">
+                                <button class="task-count-btn" data-count="1">
+                                    <span>1</span>
+                                </button>
+                                <button class="task-count-btn" data-count="2">
+                                    <span>2</span>
+                                </button>
+                                <button class="task-count-btn" data-count="3">
+                                    <span>3</span>
+                                </button>
+                                <button class="task-count-btn" data-count="4">
+                                    <span>4</span>
+                                </button>
+                                <button class="task-count-btn active" data-count="5">
+                                    <span>5</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 语言与时间 -->
+                <div class="settings-section">
+                    <h2 class="section-title" data-i18n="settings.sections.language_time">语言与时间</h2>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.language.name">界面语言</span>
+                                <span class="setting-desc" data-i18n="settings.language.desc">选择应用显示语言</span>
+                            </div>
+                        </div>
+                        <div class="setting-right language-wrap">
+                            <select class="language-select" id="language">
+                                <option value="zh" data-i18n="settings.language.zh">中文</option>
+                                <option value="en" data-i18n="settings.language.en">English</option>
+                                <option value="ja" data-i18n="settings.language.ja">日本語</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.time_format.name">时间格式</span>
+                                <span class="setting-desc" data-i18n="settings.time_format.desc">选择时间显示方式</span>
+                            </div>
+                        </div>
+                        <div class="setting-right time-format-wrap">
+                            <div class="time-format-group" id="timeFormatGroup">
+                                <button class="time-format-btn active" data-format="24">
+                                    <span data-i18n="settings.time_format.h24">24小时制</span>
+                                </button>
+                                <button class="time-format-btn" data-format="12">
+                                    <span data-i18n="settings.time_format.h12">12小时制</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.date_format.name">日期顺序</span>
+                                <span class="setting-desc" data-i18n="settings.date_format.desc">选择日期显示格式</span>
+                            </div>
+                        </div>
+                        <div class="setting-right date-format-wrap">
+                            <div class="date-format-group" id="dateFormatGroup">
+                                <button class="date-format-btn active" data-format="YMD">
+                                    <span data-i18n="settings.date_format.ymd">年-月-日</span>
+                                </button>
+                                <button class="date-format-btn" data-format="MDY">
+                                    <span data-i18n="settings.date_format.mdy">月/日/年</span>
+                                </button>
+                                <button class="date-format-btn" data-format="DMY">
+                                    <span data-i18n="settings.date_format.dmy">日/月/年</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 通知与提示 -->
+                <div class="settings-section">
+                    <h2 class="section-title" data-i18n="settings.sections.notification">通知与提示</h2>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.notification.style_name">通知弹窗样式</span>
+                                <span class="setting-desc" data-i18n="settings.notification.style_desc">选择通知的显示方式</span>
+                            </div>
+                        </div>
+                        <div class="setting-right notification-style-wrap">
+                            <div class="notification-style-group" id="notificationStyleGroup">
+                                <button class="notification-style-btn active" data-style="banner">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="3" width="20" height="8" rx="2"/>
+                                        <line x1="6" y1="7" x2="14" y2="7" stroke-width="1.5"/>
+                                        <line x1="6" y1="9" x2="11" y2="9" stroke-width="1.5"/>
+                                    </svg>
+                                    <span data-i18n="settings.notification.banner">横幅</span>
+                                </button>
+                                <button class="notification-style-btn" data-style="silent">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                    <span data-i18n="settings.notification.silent">静默</span>
+                                </button>
+                                <button class="notification-style-btn" data-style="badge">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <circle cx="18" cy="6" r="4" fill="currentColor" stroke="none"/>
+                                    </svg>
+                                    <span data-i18n="settings.notification.badge">角标</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.notification.position_name">通知显示位置</span>
+                                <span class="setting-desc" data-i18n="settings.notification.position_desc">选择通知出现的位置</span>
+                            </div>
+                        </div>
+                        <div class="setting-right notification-position-wrap">
+                            <div class="notification-position-group" id="notificationPositionGroup">
+                                <button class="notification-position-btn active" data-position="center">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="2"/>
+                                        <rect x="7" y="7" width="10" height="10" rx="1" fill="currentColor" opacity="0.3" stroke="none"/>
+                                        <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+                                    </svg>
+                                    <span data-i18n="settings.notification.center">中央</span>
+                                </button>
+                                <button class="notification-position-btn" data-position="corner">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="2"/>
+                                        <rect x="12" y="12" width="8" height="8" rx="1" fill="currentColor" opacity="0.3" stroke="none"/>
+                                        <circle cx="16" cy="16" r="2" fill="currentColor" stroke="none"/>
+                                    </svg>
+                                    <span data-i18n="settings.notification.corner">右下</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.notification.sound_name">声音提示</span>
+                                <span class="setting-desc" data-i18n="settings.notification.sound_desc">收到通知时播放提示音</span>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="sound-notify">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.notification.preview_name">预览内容</span>
+                                <span class="setting-desc" data-i18n="settings.notification.preview_desc">通知中显示消息详情</span>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked id="preview-content">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                            </svg>
+                            <div>
+                                <span class="setting-name" data-i18n="settings.notification.dnd_name">免打扰时段</span>
+                                <span class="setting-desc" data-i18n="settings.notification.dnd_desc">自动静音通知的时段</span>
+                            </div>
+                        </div>
+                        <div class="dnd-wrap">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="dnd-mode">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="dnd-time-range" id="dndTimeRange">
+                                <input type="time" id="dnd-start" class="dnd-time-input" value="22:00">
+                                <span class="dnd-time-separator" data-i18n="settings.notification.to">至</span>
+                                <input type="time" id="dnd-end" class="dnd-time-input" value="08:00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 恢复默认设置 -->
+                <div class="reset-section">
+                    <div class="reset-setting-item" id="resetSettingItem">
+                        <span class="reset-line"></span>
+                        <svg class="reset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        <span data-i18n="settings.reset.title">恢复默认设置</span>
+                        <span class="reset-line"></span>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自定义弹窗 -->
+    <div class="custom-modal-overlay" id="customModal">
+        <div class="custom-modal">
+            <div class="custom-modal-header">
+                <span class="custom-modal-title" id="customModalTitle" data-i18n="modal.title">提示</span>
+                <button class="custom-modal-close" id="customModalClose">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="custom-modal-body">
+                <p class="custom-modal-message" id="customModalMessage"></p>
+                <input type="text" class="custom-modal-input" id="customModalInput" style="display: none;">
+            </div>
+            <div class="custom-modal-footer">
+                <button class="custom-modal-btn cancel" id="customModalCancel" data-i18n="modal.cancel">取消</button>
+                <button class="custom-modal-btn confirm" id="customModalConfirm" data-i18n="modal.confirm">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/frame.js"></script>
+    <script src="js/content.js"></script>
+</body>
+</html>

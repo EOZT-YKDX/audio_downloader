@@ -6,14 +6,6 @@
 # Date Modified: 2026/7/30
 # Program Name: audio_compressor - constants
 
-# 默认驱动安装重试次数
-DEFAULT_INSTALL_RETRY = 3
-# 默认获取压缩链接重试次数
-DEFAULT_GET_LINK_RETRY = 3
-
-# 默认驱动安装路径
-DEFAULT_DRIVER_INSTALL_PATH = "."
-
 # 默认压缩后的文件名
 DEFAULT_COMPRESSED_FILE_NAME = "未知名称"
 # 压缩网站URL
@@ -61,9 +53,10 @@ DEFAULT_EDGE_ARGS = [
 # 默认压缩超时配置
 DEFAULT_COMPRESSION_TIMEOUT = {
     "seek_timeout": 10,
-    "upload_timeout": 10,
-    "submit_timeout": 10,
-    "compress_timeout": 20,
+    "upload_timeout": 30,
+    "submit_timeout": 30,
+    "compress_timeout": 180,
+    "download_timeout": 120,
 }
 
 # 默认实验选项

@@ -2,8 +2,8 @@
 
 # Author: YKDX
 # Version: 1.0.0
-# Date Creation: 2026/7/20
-# Date Modified: 2026/7/30
+# Date Creation: 2026/8/3
+# Date Modified: 2026/8/31
 # Program Name: config_handler - reader - read_config
 
 import os
@@ -27,7 +27,11 @@ def read_config(input_path: str, logger: logging.Logger) -> dict:
         with open(mode="r", encoding="utf-8", file=input_path) as file:
             config = yaml.safe_load(file)
 
+        if not config:
+            logger.error(f"无法读取配置文件: {input_path}")
+            return {}
+        
         return config
     except Exception as error:
-        logger.error(f"配置文件读取失败: {input_path} - {error}")
+        logger.error(f"无法读取配置文件: {input_path} - {error}")
         return {}

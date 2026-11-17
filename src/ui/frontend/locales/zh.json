@@ -1,0 +1,249 @@
+{
+  "app": {
+    "title": "Audio Downloader",
+    "window_title": "音频下载器"
+  },
+  "sidebar": {
+    "download_tasks": "下载任务",
+    "add_task": "添加任务",
+    "settings": "设置"
+  },
+  "toolbar": {
+    "start_all": "全部开始",
+    "pause_all": "全部暂停",
+    "delete_all": "全部删除"
+  },
+  "task_list": {
+    "empty": "当前没有下载任务",
+    "status": {
+      "pending": "等待中",
+      "downloading": "下载中",
+      "completed": "已完成",
+      "failed": "失败",
+      "paused": "已暂停"
+    },
+    "actions": {
+      "pause": "暂停",
+      "resume": "继续",
+      "delete": "删除"
+    },
+    "error": {
+      "batch_start_failed": "批量启动任务失败",
+      "batch_pause_failed": "批量暂停任务失败",
+      "batch_delete_failed": "批量删除任务失败",
+      "pause_failed": "暂停任务失败",
+      "delete_failed": "删除任务失败"
+    }
+  },
+  "add_task": {
+    "title": "添加任务",
+    "download_type": {
+      "link": "链接下载",
+      "favorite": "收藏夹下载"
+    },
+    "link": {
+      "placeholder": "添加多个下载链接时，请确保每行只有一个下载链接",
+      "parse_result": "解析结果",
+      "empty": "暂无解析内容",
+      "detecting": "正在检测链接...",
+      "valid": "链接格式有效",
+      "invalid": "链接格式无效",
+      "duplicate_warning": "发现 {count} 个重复的视频，已自动去重，仅显示非重复的视频"
+    },
+    "favorite": {
+      "label": "收藏夹 ID",
+      "placeholder": "请输入 B 站收藏夹 ID (例如: 3570962345)",
+      "help": "收藏夹 ID 可在浏览器地址栏中获取，格式为: space.bilibili.com/{uid}/favlist?fid={收藏夹ID}",
+      "parse_result": "解析结果",
+      "empty": "暂无解析内容",
+      "no_downloadable_videos": "该收藏夹内没有可下载的视频",
+      "parsing": "正在解析收藏夹...",
+      "total_videos": "共 {count} 个视频",
+      "showing": "显示前 {count} 个",
+      "valid": "收藏夹 ID 有效",
+      "invalid": "收藏夹 ID 无效",
+      "refresh": "刷新",
+      "refresh_tip": "重新爬取目标收藏夹"
+    },
+    "settings": {
+      "title": "下载设置",
+      "task_name": "任务名称",
+      "task_name_placeholder": "下载任务",
+      "task_name_tip": "为此下载任务自定义名称，便于识别和管理",
+      "speed_limit": "下载限速",
+      "speed_limit_tip": "限制此任务的下载速度，避免占用过多网络带宽",
+      "speed_options": {
+        "unlimited": "不限速",
+        "500k": "500 KB/s",
+        "1m": "1 MB/s",
+        "2m": "2 MB/s",
+        "5m": "5 MB/s"
+      },
+      "conflict": "冲突处理",
+      "conflict_tip": "当目标文件已存在时：跳过（不下载）、覆盖（替换原文件）、重命名（添加序号）",
+      "conflict_actions": {
+        "skip": "跳过",
+        "overwrite": "覆盖",
+        "rename": "重命名"
+      }
+    },
+    "buttons": {
+      "ok": "确定",
+      "cancel": "取消"
+    },
+    "validation": {
+      "enter_link": "请输入下载链接",
+      "enter_fid": "请输入收藏夹 ID",
+      "add_failed": "添加任务失败: {error}",
+      "no_valid_links": "没有有效的下载链接",
+      "links_empty": "链接列表不能为空",
+      "links_format_error": "链接列表格式错误",
+      "links_too_many": "单次任务最多支持 100 个链接",
+      "fid_format_error": "收藏夹 ID 格式错误",
+      "task_data_format_error": "任务数据格式错误",
+      "unsupported_task_type": "不支持的任务类型",
+      "task_name_invalid_chars": "任务名称包含非法字符",
+      "save_path_invalid": "保存路径不合法",
+      "link_process_failed": "链接处理失败",
+      "favorite_process_failed": "收藏夹处理失败",
+      "task_id_format_error": "任务 ID 格式错误",
+      "task_not_found": "任务不存在"
+    }
+  },
+  "settings": {
+    "sections": {
+      "appearance": "外观与主题",
+      "download": "下载与输出",
+      "language_time": "语言与时间",
+      "notification": "通知与提示",
+      "reset": "恢复默认设置"
+    },
+    "theme": {
+      "name": "主题模式",
+      "desc": "选择应用的视觉主题",
+      "light": "浅色",
+      "dark": "深色",
+      "system": "跟随系统"
+    },
+    "background": {
+      "type_name": "背景类型",
+      "type_desc": "选择应用背景样式",
+      "solid": "纯色",
+      "image": "图片",
+      "image_name": "背景图片",
+      "image_desc": "选择自定义壁纸",
+      "select_image": "选择图片"
+    },
+    "color": {
+      "name": "主题色",
+      "desc": "选择应用的强调色"
+    },
+    "format": {
+      "name": "默认输出格式",
+      "desc": "选择音频输出格式"
+    },
+    "save_path": {
+      "name": "默认保存的路径",
+      "desc": "选择文件保存位置",
+      "placeholder": "请选择保存路径",
+      "browse": "浏览"
+    },
+    "concurrent": {
+      "name": "同时下载任务数",
+      "desc": "设置最大并发下载数"
+    },
+    "concurrent_compress": {
+      "name": "同时压缩任务数",
+      "desc": "设置最大并发压缩数"
+    },
+    "language": {
+      "name": "界面语言",
+      "desc": "选择应用显示语言",
+      "zh": "中文",
+      "en": "English",
+      "ja": "日本語"
+    },
+    "time_format": {
+      "name": "时间格式",
+      "desc": "选择时间显示方式",
+      "h24": "24小时制",
+      "h12": "12小时制"
+    },
+    "date_format": {
+      "name": "日期顺序",
+      "desc": "选择日期显示格式",
+      "ymd": "年-月-日",
+      "mdy": "月/日/年",
+      "dmy": "日/月/年"
+    },
+    "notification": {
+      "style_name": "通知弹窗样式",
+      "style_desc": "选择通知的显示方式",
+      "banner": "横幅",
+      "silent": "静默",
+      "badge": "角标",
+      "position_name": "通知显示位置",
+      "position_desc": "选择通知出现的位置",
+      "center": "中央",
+      "corner": "右下",
+      "sound_name": "声音提示",
+      "sound_desc": "收到通知时播放提示音",
+      "preview_name": "预览内容",
+      "preview_desc": "通知中显示消息详情",
+      "dnd_name": "免打扰时段",
+      "dnd_desc": "自动静音通知的时段",
+      "to": "至"
+    },
+    "reset": {
+      "title": "恢复默认设置",
+      "confirm_title": "确认恢复",
+      "confirm_message": "确定要将所有设置恢复为默认值吗？此操作不可撤销。",
+      "confirm_btn": "恢复",
+      "cancel_btn": "取消",
+      "success_title": "成功",
+      "success_message": "设置已恢复为默认值",
+      "ok_btn": "知道了",
+      "error_title": "错误",
+      "error_message": "恢复失败: {error}"
+    },
+    "error": {
+      "select_image_failed": "选择图片失败",
+      "select_folder_failed": "选择文件夹失败"
+    }
+  },
+  "modal": {
+    "title": "提示",
+    "error_title": "错误",
+    "confirm": "确定",
+    "cancel": "取消",
+    "delete": {
+      "title": "确认删除",
+      "message": "确定要删除所有任务吗？此操作不可撤销。",
+      "confirm": "删除",
+      "cancel": "取消"
+    }
+  },
+  "parse": {
+    "parsing": "正在解析...",
+    "failed": "解析失败",
+    "error": "解析失败: {error}",
+    "parser_not_initialized": "B站解析器未初始化",
+    "favorite_failed": "收藏夹解析失败"
+  },
+  "backend": {
+    "links_format_error": "链接列表格式错误",
+    "links_empty": "链接列表不能为空",
+    "links_too_many": "单次任务最多支持 100 个链接",
+    "no_valid_links": "没有有效的下载链接",
+    "fid_format_error": "收藏夹 ID 格式错误"
+  },
+  "units": {
+    "b": "B",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "b_s": "B/s",
+    "kb_s": "KB/s",
+    "mb_s": "MB/s"
+  }
+}

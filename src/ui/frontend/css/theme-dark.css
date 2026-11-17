@@ -1,0 +1,25 @@
+/* ============================================
+   Audio Downloader - Dark Theme
+   ============================================ */
+
+:root {
+    /* 背景色 */
+    --bg-primary: #1c1c1e;
+    --bg-secondary: #2c2c2e;
+    --bg-tertiary: #3a3a3c;
+    
+    /* 文本色 */
+    --text-primary: #ffffff;
+    --text-secondary: #8e8e93;
+    
+    /* 边框色 */
+    --border-color: #38383a;
+    
+    /* 强调色（默认） */
+    --primary-color: #007aff;
+    
+    /* 状态色 */
+    --success-color: #34c759;
+    --warning-color: #ff9500;
+    --error-color: #ff3b30;
+}

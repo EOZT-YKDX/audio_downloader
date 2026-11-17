@@ -1,15 +1,12 @@
 # -*- coding:utf-8 -*- #
-
 # Author: YKDX
 # Version: 1.0.0
 # Date Creation: 2026/7/20
-# Date Modified: 2026/8/5
+# Date Modified: 2026/11/17
 # Program Name: audio_compressor - browser_manager - edge_browser
 
 import os
-import time
 import logging
-import msedgedriver
 
 from datetime import datetime
 from selenium import webdriver
@@ -39,11 +36,12 @@ def _get_user_agent(constants: dict, logger: logging.Logger) -> str:
         return browser_user_agent
 
 # 设置Edge浏览器选项
-def _set_edge_options(constants: dict, logger: logging.Logger) -> Options:
+def _set_edge_options(constants: dict, logger: logging.Logger, download_dir: str = "") -> Options:
     """
     设置Edge浏览器选项, 包括页面加载策略、用户代理、浏览器选项、实验选项等参数。
     :param constants: 浏览器配置字典, 包含 edge_args, experimental_options 等参数。
     :param logger: 日志记录器。
+    :param download_dir: 浏览器下载目录, 为空时使用浏览器默认下载目录。
     :return: 设置后的Edge浏览器选项对象。
     """
 
@@ -66,19 +64,34 @@ def _set_edge_options(constants: dict, logger: logging.Logger) -> Options:
     for arg in edge_args:
         edge_options.add_argument(arg)
     
+    # 复制实验选项, 避免修改原始配置
+    prefs = dict(experimental_options)
+
+    # 设置浏览器下载目录
+    if download_dir:
+        download_abs_path = os.path.abspath(download_dir)
+
+        prefs["download.directory_upgrade"] = True
+        prefs["download.prompt_for_download"] = False
+        prefs["download.default_directory"] = download_abs_path
+        prefs["savefile.default_directory"] = download_abs_path
+
+        logger.debug(f"Edge浏览器下载目录设置成功 - {download_abs_path}")
+
     # 设置实验选项
-    edge_options.add_experimental_option("prefs", experimental_options)
+    edge_options.add_experimental_option("prefs", prefs)
 
     logger.debug(f"Edge浏览器选项设置成功 - 累计时长: {datetime.now() - start_time}")
     return edge_options
 
 # 初始化Edge浏览器
-def init_edge_browser(constants: dict, logger: logging.Logger) -> webdriver.Edge:
+def init_edge_browser(constants: dict, logger: logging.Logger, download_dir: str = "") -> webdriver.Edge:
     """
     初始化Edge浏览器, 用于访问目标 URL。
-    :param constants: 浏览器配置字典, 包含 install_retry, driver_install_path, browser_user_agent,
+    :param constants: 浏览器配置字典, 包含 browser_user_agent,
     edge_args, experimental_options, compression_url 等参数。
     :param logger: 日志记录器。
+    :param download_dir: 浏览器下载目录, 为空时使用浏览器默认下载目录。
     :return: 初始化后的Edge浏览器对象。 
     """
 
@@ -88,7 +101,7 @@ def init_edge_browser(constants: dict, logger: logging.Logger) -> webdriver.Edge
     compression_url = constants["compression_url"]
     
     # 设置Edge浏览器选项
-    edge_options = _set_edge_options(constants=constants, logger=logger)
+    edge_options = _set_edge_options(constants=constants, logger=logger, download_dir=download_dir)
 
     # 获取Edge浏览器实例
     browser = webdriver.Edge(options=edge_options)

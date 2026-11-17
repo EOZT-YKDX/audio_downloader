@@ -1,0 +1,249 @@
+{
+  "app": {
+    "title": "Audio Downloader",
+    "window_title": "Audio Downloader"
+  },
+  "sidebar": {
+    "download_tasks": "Download Tasks",
+    "add_task": "Add Task",
+    "settings": "Settings"
+  },
+  "toolbar": {
+    "start_all": "Start All",
+    "pause_all": "Pause All",
+    "delete_all": "Delete All"
+  },
+  "task_list": {
+    "empty": "No download tasks",
+    "status": {
+      "pending": "Pending",
+      "downloading": "Downloading",
+      "completed": "Completed",
+      "failed": "Failed",
+      "paused": "Paused"
+    },
+    "actions": {
+      "pause": "Pause",
+      "resume": "Resume",
+      "delete": "Delete"
+    },
+    "error": {
+      "batch_start_failed": "Failed to start tasks in batch",
+      "batch_pause_failed": "Failed to pause tasks in batch",
+      "batch_delete_failed": "Failed to delete tasks in batch",
+      "pause_failed": "Failed to pause task",
+      "delete_failed": "Failed to delete task"
+    }
+  },
+  "add_task": {
+    "title": "Add Task",
+    "download_type": {
+      "link": "Link Download",
+      "favorite": "Favorites Download"
+    },
+    "link": {
+      "placeholder": "When adding multiple download links, please ensure only one link per line",
+      "parse_result": "Parse Results",
+      "empty": "No parsed content yet",
+      "detecting": "Detecting links...",
+      "valid": "Link format is valid",
+      "invalid": "Link format is invalid",
+      "duplicate_warning": "Found {count} duplicate video(s), automatically deduplicated, only showing unique videos"
+    },
+    "favorite": {
+      "label": "Favorites ID",
+      "placeholder": "Please enter Bilibili Favorites ID (e.g.: 3570962345)",
+      "help": "Favorites ID can be obtained from the browser address bar, format: space.bilibili.com/{uid}/favlist?fid={FavoritesID}",
+      "parse_result": "Parse Results",
+      "empty": "No parsed content yet",
+      "no_downloadable_videos": "No downloadable videos in this favorites",
+      "parsing": "Parsing favorites...",
+      "total_videos": "{count} videos in total",
+      "showing": "Showing first {count}",
+      "valid": "Favorites ID is valid",
+      "invalid": "Favorites ID is invalid",
+      "refresh": "Refresh",
+      "refresh_tip": "Re-fetch target favorites"
+    },
+    "settings": {
+      "title": "Download Settings",
+      "task_name": "Task Name",
+      "task_name_placeholder": "Download Task",
+      "task_name_tip": "Customize a name for this download task for easy identification and management",
+      "speed_limit": "Speed Limit",
+      "speed_limit_tip": "Limit the download speed of this task to avoid using too much network bandwidth",
+      "speed_options": {
+        "unlimited": "Unlimited",
+        "500k": "500 KB/s",
+        "1m": "1 MB/s",
+        "2m": "2 MB/s",
+        "5m": "5 MB/s"
+      },
+      "conflict": "Conflict Handling",
+      "conflict_tip": "When the target file already exists: Skip (don't download), Overwrite (replace original file), Rename (add sequence number)",
+      "conflict_actions": {
+        "skip": "Skip",
+        "overwrite": "Overwrite",
+        "rename": "Rename"
+      }
+    },
+    "buttons": {
+      "ok": "OK",
+      "cancel": "Cancel"
+    },
+    "validation": {
+      "enter_link": "Please enter download links",
+      "enter_fid": "Please enter Favorites ID",
+      "add_failed": "Failed to add task: {error}",
+      "no_valid_links": "No valid download links",
+      "links_empty": "Links list cannot be empty",
+      "links_format_error": "Invalid links list format",
+      "links_too_many": "Maximum 100 links per task",
+      "fid_format_error": "Invalid Favorites ID format",
+      "task_data_format_error": "Invalid task data format",
+      "unsupported_task_type": "Unsupported task type",
+      "task_name_invalid_chars": "Task name contains invalid characters",
+      "save_path_invalid": "Invalid save path",
+      "link_process_failed": "Link processing failed",
+      "favorite_process_failed": "Favorites processing failed",
+      "task_id_format_error": "Invalid task ID format",
+      "task_not_found": "Task not found"
+    }
+  },
+  "settings": {
+    "sections": {
+      "appearance": "Appearance & Theme",
+      "download": "Download & Output",
+      "language_time": "Language & Time",
+      "notification": "Notifications",
+      "reset": "Reset to Defaults"
+    },
+    "theme": {
+      "name": "Theme Mode",
+      "desc": "Choose the visual theme for the app",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "Follow System"
+    },
+    "background": {
+      "type_name": "Background Type",
+      "type_desc": "Choose the app background style",
+      "solid": "Solid Color",
+      "image": "Image",
+      "image_name": "Background Image",
+      "image_desc": "Choose a custom wallpaper",
+      "select_image": "Select Image"
+    },
+    "color": {
+      "name": "Theme Color",
+      "desc": "Choose the accent color for the app"
+    },
+    "format": {
+      "name": "Default Output Format",
+      "desc": "Choose audio output format"
+    },
+    "save_path": {
+      "name": "Default Save Path",
+      "desc": "Choose file save location",
+      "placeholder": "Please select save path",
+      "browse": "Browse"
+    },
+    "concurrent": {
+      "name": "Concurrent Downloads",
+      "desc": "Set maximum concurrent download count"
+    },
+    "concurrent_compress": {
+      "name": "Concurrent Compressions",
+      "desc": "Set maximum concurrent compression count"
+    },
+    "language": {
+      "name": "Interface Language",
+      "desc": "Choose app display language",
+      "zh": "Chinese",
+      "en": "English",
+      "ja": "Japanese"
+    },
+    "time_format": {
+      "name": "Time Format",
+      "desc": "Choose time display format",
+      "h24": "24-hour",
+      "h12": "12-hour"
+    },
+    "date_format": {
+      "name": "Date Order",
+      "desc": "Choose date display format",
+      "ymd": "Year-Month-Day",
+      "mdy": "Month/Day/Year",
+      "dmy": "Day/Month/Year"
+    },
+    "notification": {
+      "style_name": "Notification Style",
+      "style_desc": "Choose how notifications are displayed",
+      "banner": "Banner",
+      "silent": "Silent",
+      "badge": "Badge",
+      "position_name": "Notification Position",
+      "position_desc": "Choose where notifications appear",
+      "center": "Center",
+      "corner": "Bottom Right",
+      "sound": "Sound Alerts",
+      "sound_desc": "Play notification sound",
+      "preview": "Preview Content",
+      "preview_desc": "Show message details in notifications",
+      "dnd": "Do Not Disturb",
+      "dnd_desc": "Automatically mute notifications during this period",
+      "to": "to"
+    },
+    "reset": {
+      "title": "Reset to Defaults",
+      "confirm_title": "Confirm Reset",
+      "confirm_message": "Are you sure you want to reset all settings to default? This action cannot be undone.",
+      "confirm_btn": "Reset",
+      "cancel_btn": "Cancel",
+      "success_title": "Success",
+      "success_message": "Settings have been reset to defaults",
+      "ok_btn": "OK",
+      "error_title": "Error",
+      "error_message": "Reset failed: {error}"
+    },
+    "error": {
+      "select_image_failed": "Failed to select image",
+      "select_folder_failed": "Failed to select folder"
+    }
+  },
+  "modal": {
+    "title": "Notice",
+    "error_title": "Error",
+    "confirm": "OK",
+    "cancel": "Cancel",
+    "delete": {
+      "title": "Confirm Delete",
+      "message": "Are you sure you want to delete all tasks? This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
+  },
+  "parse": {
+    "parsing": "Parsing...",
+    "failed": "Parse failed",
+    "error": "Parse failed: {error}",
+    "parser_not_initialized": "Bilibili parser not initialized",
+    "favorite_failed": "Favorites parse failed"
+  },
+  "backend": {
+    "links_format_error": "Invalid links list format",
+    "links_empty": "Links list cannot be empty",
+    "links_too_many": "Maximum 100 links per task",
+    "no_valid_links": "No valid download links",
+    "fid_format_error": "Invalid Favorites ID format"
+  },
+  "units": {
+    "b": "B",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "b_s": "B/s",
+    "kb_s": "KB/s",
+    "mb_s": "MB/s"
+  }
+}

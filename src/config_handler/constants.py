@@ -3,7 +3,7 @@
 # Author: YKDX
 # Version: 1.0.0
 # Date Creation: 2026/7/20
-# Date Modified: 2026/8/5
+# Date Modified: 2026/11/17
 # Program Name: config_handler - constants
 
 import os
@@ -27,11 +27,6 @@ DEFAULT_ORIGINAL_CONFIG = {
     },
 
     # ================== audio_compressor ==================
-    "install_retry": 3,                                        # 默认安装重试次数
-    "get_link_retry": 3,                                       # 默认获取链接重试次数
-
-    "driver_install_path": r".",                               # 默认驱动安装路径
-
     "compressed_file_name": "未知名称",                        # 默认压缩文件名
 
     "compression_url": "https://www.youcompress.com/zh-cn/",   # 默认压缩网站URL
@@ -75,9 +70,10 @@ DEFAULT_ORIGINAL_CONFIG = {
 
     "compression_timeout": {                                   # 默认压缩超时配置
         "seek_timeout": 10,                                    # 默认定位超时时间
-        "upload_timeout": 10,                                  # 默认上传超时时间
-        "submit_timeout": 10,                                  # 默认提交超时时间
-        "compress_timeout": 20,                                # 默认压缩超时时间
+        "upload_timeout": 30,                                  # 默认上传超时时间
+        "submit_timeout": 30,                                  # 默认提交超时时间
+        "compress_timeout": 180,                               # 默认压缩超时时间
+        "download_timeout": 120,                               # 默认下载超时时间
         },
 
     "experimental_options": {                                               # 默认实验性选项
