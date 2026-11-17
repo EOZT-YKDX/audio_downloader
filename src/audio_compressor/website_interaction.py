@@ -73,7 +73,6 @@ def _find_element(browser: webdriver.Edge, locators: list, timeout: int, logger:
                 continue
 
         if time.time() >= deadline:
-            logger.debug(f"元素定位失败, 已尝试全部候选策略 - {[value for _, value in locators]}")
             return None
 
         time.sleep(0.5)
@@ -241,7 +240,6 @@ def _locate_in_any_frame(browser: webdriver.Edge, locators: list, timeout: int, 
             pass
 
         if time.time() >= deadline:
-            logger.debug(f"主页面与 iframe 中均未定位到元素 - {[value for _, value in locators]}")
             return None, None
 
         # 每 5 秒输出一次进度, 用于判断压缩是否仍在推进
@@ -249,8 +247,7 @@ def _locate_in_any_frame(browser: webdriver.Edge, locators: list, timeout: int, 
             last_progress_time = time.time()
 
             try:
-                body_text = browser.find_element(By.TAG_NAME, "body").text[:300]
-                logger.debug(f"等待元素中 - 剩余: {int(deadline - time.time())} 秒 - 页面正文: {body_text}")
+                browser.find_element(By.TAG_NAME, "body").text[:300]
             except Exception:
                 logger.debug(f"等待元素中 - 剩余: {int(deadline - time.time())} 秒")
 
